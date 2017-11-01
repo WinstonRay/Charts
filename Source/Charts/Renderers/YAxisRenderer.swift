@@ -141,17 +141,28 @@ open class YAxisRenderer: AxisRendererBase
         let labelFont = yAxis.labelFont
         let labelTextColor = yAxis.labelTextColor
         
-        let from = yAxis.isDrawBottomYLabelEntryEnabled ? 0 : 1
-        let to = yAxis.isDrawTopYLabelEntryEnabled ? yAxis.entryCount : (yAxis.entryCount - 1)
-        
-        for i in stride(from: from, to: to, by: 1)
+       // let from = yAxis.isDrawBottomYLabelEntryEnabled ? 0 : 1
+       // let to = yAxis.isDrawTopYLabelEntryEnabled ? yAxis.entryCount : (yAxis.entryCount - 1)
+        // winston test
+        let gridLine_number = [0,Int(yAxis.axisMaximum/2), Int(yAxis.axisMaximum)]
+        for i in 0...2
         {
-            let text = yAxis.getFormattedLabel(i)
+            var y = positions[i].y
+            if i == 1{
+                continue
+            }
+            else if i == 0{
+                y -= 20
+            }
+            else if i == 2{
+                y += 7
+            }
             
+            let text = String(gridLine_number[i])
             ChartUtils.drawText(
                 context: context,
                 text: text,
-                point: CGPoint(x: fixedPosition, y: positions[i].y + offset),
+                point: CGPoint(x: fixedPosition, y: y),
                 align: textAlign,
                 attributes: [NSAttributedStringKey.font: labelFont, NSAttributedStringKey.foregroundColor: labelTextColor])
         }
@@ -237,14 +248,16 @@ open class YAxisRenderer: AxisRendererBase
         
         var positions = [CGPoint]()
         positions.reserveCapacity(yAxis.entryCount)
-        
-        let entries = yAxis.entries
-        
-        for i in stride(from: 0, to: yAxis.entryCount, by: 1)
-        {
-            positions.append(CGPoint(x: 0.0, y: entries[i]))
-        }
-
+//        let entries = yAxis.entries
+//        for i in stride(from: 0, to: yAxis.entryCount, by: 1)
+//        {
+//            positions.append(CGPoint(x: 0.0, y: entries[i]))
+//        }
+        // winston test
+        positions.append(CGPoint(x: 0.0, y: 0))
+        positions.append(CGPoint(x: 0.0, y: yAxis.axisMaximum / 2))
+        positions.append(CGPoint(x: 0.0, y: yAxis.axisMaximum))
+        print("bbbhhhh",positions)
         transformer.pointValuesToPixel(&positions)
         
         return positions
@@ -484,13 +497,13 @@ open class YAxisRenderer: AxisRendererBase
                 else if l.labelPosition == .rightBottom
                 {
                     /* winston test */
-                    ChartUtils.drawImage(context: context, image: image, x:  viewPortHandler.contentRight - 50, y:  position.y + yOffset - labelLineHeight, size: size)
+                    ChartUtils.drawImage(context: context, image: image, x:  viewPortHandler.contentRight - size.width/2, y:  position.y, size: size)
                     
                     ChartUtils.drawText(context: context,
                                         text: label,
                                         point: CGPoint(
                                             x: viewPortHandler.contentRight - xOffset,
-                                            y: position.y + yOffset - labelLineHeight),
+                                            y: position.y + yOffset - labelLineHeight + size.height/2 - 3),
                                         align: .right,
                                         attributes: [NSAttributedStringKey.font: l.valueFont, NSAttributedStringKey.foregroundColor: l.valueTextColor])
                 }

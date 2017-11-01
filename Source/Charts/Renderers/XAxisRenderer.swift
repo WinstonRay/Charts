@@ -275,7 +275,7 @@ open class XAxisRenderer: AxisRendererBase
         ChartUtils.drawMultilineText(
             context: context,
             text: formattedLabel,
-            point: CGPoint(x: x, y: y),
+            point: CGPoint(x: x, y: y-10),  // winston test
             attributes: attributes,
             constrainedToSize: constrainedToSize,
             anchor: anchor,
