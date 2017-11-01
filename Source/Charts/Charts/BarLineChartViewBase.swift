@@ -35,7 +35,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     fileprivate var _scaleYEnabled = true
     // winston test
     @objc open var goalImage = UIImage()
-    
+    @objc open var goalImage_size = CGSize(width: 0, height: 0)
+
     /// the color for the background of the chart-drawing area (everything behind the grid lines).
     @objc open var gridBackgroundColor = NSUIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
     
@@ -250,7 +251,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         if _rightAxis.isEnabled && !_rightAxis.isDrawLimitLinesBehindDataEnabled
         {
             // winston test
-            _rightYAxisRenderer?.renderLimitLines_byWinston(context: context, image: goalImage, size: CGSize(width: 40, height: 30))
+            _rightYAxisRenderer?.renderLimitLines_byWinston(context: context, image: goalImage, size: goalImage_size)
         }
         
         _xAxisRenderer.renderAxisLabels(context: context)
