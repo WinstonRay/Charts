@@ -257,7 +257,7 @@ open class YAxisRenderer: AxisRendererBase
         positions.append(CGPoint(x: 0.0, y: 0))
         positions.append(CGPoint(x: 0.0, y: yAxis.axisMaximum / 2))
         positions.append(CGPoint(x: 0.0, y: yAxis.axisMaximum))
-        print("bbbhhhh",positions)
+        //print("bbbhhhh",positions)
         transformer.pointValuesToPixel(&positions)
         
         return positions
@@ -502,7 +502,7 @@ open class YAxisRenderer: AxisRendererBase
                     ChartUtils.drawText(context: context,
                                         text: label,
                                         point: CGPoint(
-                                            x: viewPortHandler.contentRight - xOffset,
+                                            x: viewPortHandler.contentRight - xOffset + 1,
                                             y: position.y + yOffset - labelLineHeight + size.height/2 - 3),
                                         align: .right,
                                         attributes: [NSAttributedStringKey.font: l.valueFont, NSAttributedStringKey.foregroundColor: l.valueTextColor])
